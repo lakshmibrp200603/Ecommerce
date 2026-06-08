@@ -142,15 +142,15 @@ const styles = {
       "linear-gradient(135deg, #fe4fd8, #fe00b2)",
     fontFamily: "Arial",
   },
-
-  loginBox: {
-    width: "350px",
-    background: "white",
-    padding: "30px",
-    borderRadius: "12px",
-    boxShadow:
-      "0 4px 15px rgba(0,0,0,0.2)",
-  },
+loginBox: {
+  width: "90%",
+  maxWidth: "350px",
+  background: "white",
+  padding: "30px",
+  borderRadius: "12px",
+  boxShadow: "0 4px 15px rgba(0,0,0,0.2)",
+},
+ 
 
   heading: {
     textAlign: "center",

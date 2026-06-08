@@ -4,7 +4,8 @@ import ProductCard
 from "../components/ProductCard";
 
 export default function Dashboard({
-  products,
+  products, 
+  
   addToCart
 }) {
 

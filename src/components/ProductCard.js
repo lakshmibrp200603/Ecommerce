@@ -44,9 +44,13 @@ export default function ProductCard({
         {product.title}
       </h2>
 
-      <p>
-        ₹ {product.price}
-      </p>
+     <p>
+  ₹ {product.price}
+</p>
+
+<p>
+  ⭐ {product.rating?.rate}
+</p>
 
       <button
         onClick={() =>

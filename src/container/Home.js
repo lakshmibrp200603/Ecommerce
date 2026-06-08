@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import Dashboard from "../container/Dashboard";
 
@@ -13,17 +13,19 @@ import LoaderIcon from "@iconify-react/codex/loader";
 function Home() {
 
   const [products, setProducts] = useState([]);
+  
+  
 
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState([]); 
+  const [searchTerm, setSearchTerm] = useState("");
 
-  const navigate = useNavigate();
+ 
 
   const [loading, setLoading] = useState(true);
-  const handleLogout =()=>{
-    localStorage.removeItem("token");
-    console.log("REMOVE");
-    navigate("/");
-  }
+  const filteredProducts = products.filter((item) =>
+  item.title?.toLowerCase().includes(searchTerm.toLowerCase())
+);
+  
 
   useEffect(() => {
 
@@ -57,6 +59,7 @@ function Home() {
 
     console.log(product);
   };
+  
 
   // Loading Screen
   if (loading) {
@@ -86,14 +89,11 @@ function Home() {
   return (
 
     <div>
-      <Header handleLogout={handleLogout} />
-      <h1
-        style={{
-          textAlign: "center"
-        }}
-      >
-     Cart: {cart.length}
-      </h1>
+      <Header
+  cartCount={cart.length}
+  searchTerm={searchTerm}
+  setSearchTerm={setSearchTerm}
+/>
 
       <Routes>
 
@@ -101,9 +101,9 @@ function Home() {
           path="/"
           element={
             <Dashboard
-              products={products}
-              addToCart={addToCart}
-            />
+  products={filteredProducts}
+  addToCart={addToCart}
+/>
           }
         />
 

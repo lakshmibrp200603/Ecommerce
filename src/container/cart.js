@@ -1,11 +1,12 @@
 import React from "react";
-export default function Cart({Cart}) {
+
+export default function Cart({ cart = [] }) {
   return (
     <div style={{ padding: "20px" }}>
-      <h2>onClick</h2>
+      <h2>My Cart</h2>
 
       {cart.length === 0 ? (
-        <h3>Add To cart</h3>
+        <h3>Cart is Empty</h3>
       ) : (
         cart.map((item) => (
           <div
@@ -16,17 +17,17 @@ export default function Cart({Cart}) {
               padding: "10px",
             }}
           >
-            <h3>{item.name}</h3>
+            <h3>{item.title}</h3>
             <p>₹ {item.price}</p>
 
             <button
-              onClick={() => onClick(item.id)}
               style={{
                 background: "red",
                 color: "white",
                 padding: "5px 10px",
               }}
             >
+              Remove
             </button>
           </div>
         ))

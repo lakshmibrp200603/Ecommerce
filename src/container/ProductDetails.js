@@ -12,6 +12,7 @@ import {
   getSingleProduct
 } from "../Services/productService";
 
+
 export default function ProductDetails() {
 
   const { id } = useParams();

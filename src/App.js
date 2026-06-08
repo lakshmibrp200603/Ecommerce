@@ -1,22 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
-  BrowserRouter,
+  HashRouter,
   Routes,
   Route
 } from "react-router-dom";
 
-import Login from "./container/Loign";
+import Login from "./container/Login";
 
 import Home from "./container/Home";
 
 import ProductDetails from "./container/ProductDetails";
+import Cart from "./container/Cart";
 
 function App() {
+  const [cart, setCart] = useState([]);
+  
 
   return (
 
-    <BrowserRouter>
+   <HashRouter>
 
       <Routes> 
 
@@ -35,9 +38,14 @@ function App() {
           element={<ProductDetails />}
         />
 
-      </Routes>
+      
+  <Route
+    path="/cart"
+    element={<Cart />}
+  />
+</Routes>
 
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
