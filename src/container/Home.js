@@ -1,27 +1,16 @@
 import React, { useEffect, useState } from "react";
-
-import { Routes, Route } from "react-router-dom";
-
 import Dashboard from "../container/Dashboard";
-
-
-import ProductDetails from "./ProductDetails";
 import Header from "../components/Header";
 import { getProducts } from "../Services/productService";
 import LoaderIcon from "@iconify-react/codex/loader";
 
-function Home() {
+function Home({ cart = [], setCart }) {
+  console.log("Cart from App:", cart);
 
   const [products, setProducts] = useState([]);
   
-  
-
-  const [cart, setCart] = useState([]); 
-  const [searchTerm, setSearchTerm] = useState("");
-
- 
-
-  const [loading, setLoading] = useState(true);
+ const [searchTerm, setSearchTerm] = useState("");
+   const [loading, setLoading] = useState(true);
   const filteredProducts = products.filter((item) =>
   item.title?.toLowerCase().includes(searchTerm.toLowerCase())
 );
@@ -53,12 +42,32 @@ function Home() {
 
   }, []);
 
-  const addToCart = (product) => {
+ const addToCart = (product) => {
+  const existingProduct = cart.find(
+    (item) => item.id === product.id
+  );
 
-    setCart([...cart, product]);
+  if (existingProduct) {
+    const updatedCart = cart.map((item) =>
+      item.id === product.id
+        ? {
+            ...item,
+            qty: (item.qty || 1) + 1,
+          }
+        : item
+    );
 
-    console.log(product);
-  };
+    setCart(updatedCart);
+  } else {
+    setCart([
+      ...cart,
+      {
+        ...product,
+        qty: 1,
+      },
+    ]);
+  }
+};
   
 
   // Loading Screen
@@ -94,25 +103,13 @@ function Home() {
   searchTerm={searchTerm}
   setSearchTerm={setSearchTerm}
 />
-
-      <Routes>
-
-        <Route
-          path="/"
-          element={
-            <Dashboard
+<Dashboard
   products={filteredProducts}
   addToCart={addToCart}
 />
-          }
-        />
 
-        <Route
-          path="/product/:id"
-          element={<ProductDetails />}
-        />
 
-      </Routes>
+     
 
     </div>
   );
